@@ -1,12 +1,11 @@
-# Create your models here.
 from django.db import models
 from django.contrib.auth import get_user_model
-from django.core.validators import MinLengthValidator
 
 User = get_user_model()
 
 
 class Category(models.Model):
+    """Модель категории публикаций."""
     title = models.CharField(
         max_length=256,
         verbose_name='Заголовок'
@@ -17,12 +16,14 @@ class Category(models.Model):
     slug = models.SlugField(
         unique=True,
         verbose_name='Идентификатор',
-        help_text='Идентификатор страницы для URL; разрешены символы латиницы, цифры, дефис и подчёркивание.'
+        help_text=(
+            'Идентификатор страницы для URL; '
+            'разрешены символы латиницы, цифры, дефис и подчёркивание.'
+        )
     )
     is_published = models.BooleanField(
         default=True,
-        verbose_name='Опубликовано',
-        help_text='Снимите галочку, чтобы скрыть публикацию.'
+        verbose_name='Опубликовано'
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
@@ -38,6 +39,7 @@ class Category(models.Model):
 
 
 class Location(models.Model):
+    """Модель географической метки."""
     name = models.CharField(
         max_length=256,
         verbose_name='Название места'
@@ -57,9 +59,10 @@ class Location(models.Model):
 
     def __str__(self):
         return self.name
- 
+
 
 class Post(models.Model):
+    """Модель публикации."""
     title = models.CharField(
         max_length=256,
         verbose_name='Заголовок'
@@ -69,7 +72,10 @@ class Post(models.Model):
     )
     pub_date = models.DateTimeField(
         verbose_name='Дата и время публикации',
-        help_text='Если установить дату и время в будущем — можно делать отложенные публикации.'
+        help_text=(
+            'Если установить дату и время в будущем — '
+            'можно делать отложенные публикации.'
+        )
     )
     author = models.ForeignKey(
         User,
@@ -101,7 +107,7 @@ class Post(models.Model):
     class Meta:
         verbose_name = 'публикация'
         verbose_name_plural = 'Публикации'
-        ordering = ['-pub_date']  # Сортировка по дате (новые сверху)
+        ordering = ['-pub_date']
 
     def __str__(self):
         return self.title
