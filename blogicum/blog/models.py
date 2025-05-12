@@ -6,6 +6,7 @@ User = get_user_model()
 
 class Category(models.Model):
     """Модель категории публикаций."""
+
     title = models.CharField(
         max_length=256,
         verbose_name='Заголовок'
@@ -40,6 +41,7 @@ class Category(models.Model):
 
 class Location(models.Model):
     """Модель географической метки."""
+
     name = models.CharField(
         max_length=256,
         verbose_name='Название места'
@@ -63,6 +65,7 @@ class Location(models.Model):
 
 class Post(models.Model):
     """Модель публикации."""
+
     title = models.CharField(
         max_length=256,
         verbose_name='Заголовок'
