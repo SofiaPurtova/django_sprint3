@@ -10,7 +10,7 @@ def index(request):
         is_published=True,
         category__is_published=True
     ).select_related('category', 'location', 'author')[:5]
-    
+
     return render(request, 'blog/index.html', {'post_list': post_list})
 
 
@@ -38,7 +38,7 @@ def category_posts(request, category_slug):
         pub_date__lte=timezone.now(),
         is_published=True
     ).select_related('location', 'author')
-    
+
     return render(request, 'blog/category.html', {
         'category': category,
         'post_list': post_list
